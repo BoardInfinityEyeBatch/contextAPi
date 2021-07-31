@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import PackageContext from './context'
+import Provider from './Provider'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+
+const Cry= () => {
+  return(
+    <div>
+      <Laugh />
     </div>
-  );
+  )
 }
 
-export default App;
+
+const Laugh = () => {
+  return(
+    <div>   
+      <Smile />
+    </div>
+  )
+}
+
+const Smile = (props) => { 
+  return(
+    <PackageContext.Consumer>
+      {(context) => (
+        <div> 
+            <h1> Access values from Provider</h1>
+            <p>Name of cricketer is: {context.data.name}</p>
+            <p>His Highest Score: {context.data.highestScore}</p>
+            <p>Lets update High score</p>
+            <button onClick={context.updateHighScore}> Upadte High Score</button>
+            <p>About his retirement: {context.data.retired}</p>
+            <p>Lets update retirement</p>
+            <button onClick={context.updateRetirement}> Click to Update </button>
+        </div>
+      )
+}
+    </PackageContext.Consumer>
+  )
+}
+
+
+const App = () => {
+  return(
+    <Provider>
+      <Cry />
+    </Provider>
+    
+    
+  )
+}
+
+
+export default App
